@@ -3,923 +3,1092 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mirs Falafel — Äkta Falafel i Norsborg</title>
+    <title>MIR'S FALAFEL — Äkta Falafel i Norsborg Sedan 2010</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@400;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Bebas+Neue&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-warm: #FDF8F3;
-            --bg-cream: #FAF6F1;
-            --terracotta: #C4A77D;
-            --terracotta-dark: #8B6914;
-            --falafel-green: #4A7C59;
-            --falafel-green-light: #6B8E23;
-            --text-dark: #2C2416;
-            --text-black: #1A1612;
-            --sun-gold: #E8A838;
-            --sun-orange: #D49420;
-            --white: #FFFFFF;
+            --terracotta: #C75B39;
+            --terracotta-dark: #A6482A;
+            --olive: #4A4A2A;
+            --olive-light: #5A5A3A;
+            --saffron: #F4B942;
+            --saffron-dark: #E5A832;
+            --cream: #FAF3E8;
+            --warm-beige: #F5E6D3;
+            --charcoal: #1A1A1A;
+            --warm-white: #FDF9F3;
         }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
+
         body {
-            font-family: 'Source Sans 3', sans-serif;
-            background-color: var(--bg-warm);
-            color: var(--text-dark);
-            line-height: 1.7;
+            font-family: 'Crimson Text', serif;
+            background-color: var(--warm-white);
+            color: var(--charcoal);
+            line-height: 1.6;
             overflow-x: hidden;
         }
-        h1, h2, h3 {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 700;
-            color: var(--text-black);
+
+        /* Noise Texture Overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 9999;
         }
-        .arabic-accent { font-family: 'Amiri', serif; }
-        header {
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
+        .animate-fade-in { animation: fadeIn 0.6s ease-out forwards; opacity: 0; }
+        .animate-slide-left { animation: slideInLeft 0.8s ease-out forwards; opacity: 0; }
+        .animate-slide-right { animation: slideInRight 0.8s ease-out forwards; opacity: 0; }
+        .animate-scale-in { animation: scaleIn 0.7s ease-out forwards; opacity: 0; }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-600 { animation-delay: 0.6s; }
+        .delay-700 { animation-delay: 0.7s; }
+        .delay-800 { animation-delay: 0.8s; }
+
+        /* Navigation */
+        nav {
             position: fixed;
             top: 0; left: 0; right: 0;
             z-index: 1000;
-            background: linear-gradient(to bottom, rgba(253, 248, 243, 0.98), rgba(253, 248, 243, 0.9));
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(196, 167, 125, 0.2);
-        }
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
+            padding: 1.5rem 3rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: linear-gradient(to bottom, rgba(253,249,243,0.98), rgba(253,249,243,0.9));
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(199,91,57,0.1);
         }
-        .logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
-        .logo-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-black);
-            letter-spacing: -0.5px;
+
+        .logo {
+            text-decoration: none;
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
         }
+
+        .logo-main {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: var(--terracotta);
+        }
+
         .logo-accent {
             font-family: 'Amiri', serif;
-            font-size: 1.2rem;
-            color: var(--falafel-green);
+            font-size: 1.1rem;
+            color: var(--olive);
         }
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
         .nav-links a {
-            text-decoration: none;
-            color: var(--text-dark);
+            font-family: 'Crimson Text', serif;
+            font-size: 1.1rem;
             font-weight: 600;
-            font-size: 0.95rem;
+            color: var(--charcoal);
+            text-decoration: none;
             position: relative;
-            padding: 0.5rem 0;
             transition: color 0.3s ease;
         }
+
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: 0; left: 0;
+            bottom: -4px; left: 0;
             width: 0; height: 2px;
-            background: var(--sun-gold);
+            background: var(--saffron);
             transition: width 0.3s ease;
         }
-        .nav-links a:hover { color: var(--sun-orange); }
+
+        .nav-links a:hover { color: var(--terracotta); }
         .nav-links a:hover::after { width: 100%; }
+
         .mobile-menu-btn {
             display: none;
             background: none;
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
-            color: var(--text-dark);
+            color: var(--charcoal);
         }
+
+        /* Hero Section - Asymmetrical */
         .hero {
             min-height: 100vh;
+            background: var(--terracotta);
+            position: relative;
             display: flex;
             align-items: center;
-            padding: 6rem 2rem 4rem;
-            position: relative;
+            padding: 8rem 4rem 4rem;
             overflow: hidden;
         }
+
         .hero::before {
             content: '';
             position: absolute;
             top: -50%; right: -20%;
-            width: 80%; height: 150%;
-            background: radial-gradient(ellipse, rgba(232, 168, 56, 0.08) 0%, transparent 70%);
-            pointer-events: none;
+            width: 80%; height: 200%;
+            background: var(--olive);
+            transform: rotate(-15deg);
+            z-index: 1;
         }
-        .hero-container {
-            max-width: 1200px;
-            margin: 0 auto;
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(4rem, 12vw, 9rem);
+            line-height: 0.9;
+            color: var(--cream);
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-family: 'Amiri', serif;
+            font-size: 1.5rem;
+            color: var(--saffron);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-text {
+            font-size: 1.3rem;
+            color: var(--cream);
+            max-width: 450px;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .hero-image {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 3;
+            width: 45%;
+            max-width: 600px;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+        }
+
+        .hero-info {
+            position: absolute;
+            bottom: 3rem; left: 4rem;
+            z-index: 2;
+            display: flex;
+            gap: 3rem;
+        }
+
+        .hero-info-item { color: var(--cream); }
+
+        .hero-info-item h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            color: var(--saffron);
+            margin-bottom: 0.3rem;
+        }
+
+        .hero-info-item p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            border: 2px solid var(--saffron);
+            color: var(--saffron);
+            background: transparent;
+            position: relative;
+            overflow: hidden;
+            transition: color 0.4s ease;
+            cursor: pointer;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 0;
+            background: var(--saffron);
+            transition: height 0.4s ease;
+            z-index: -1;
+        }
+
+        .btn:hover { color: var(--terracotta); }
+        .btn:hover::before { height: 100%; }
+
+        .btn-filled {
+            background: var(--saffron);
+            color: var(--charcoal);
+        }
+
+        .btn-filled::before { background: var(--terracotta-dark); }
+        .btn-filled:hover { color: var(--cream); border-color: var(--terracotta-dark); }
+
+        /* Section Styling */
+        section { padding: 6rem 4rem; position: relative; }
+
+        .section-header { margin-bottom: 4rem; }
+
+        .section-header h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            color: var(--terracotta);
+            line-height: 1;
+        }
+
+        .section-header .subtitle {
+            font-family: 'Amiri', serif;
+            font-size: 1.3rem;
+            color: var(--olive);
+            margin-top: 0.5rem;
+        }
+
+        /* Menu Preview - Three Cards */
+        .menu-preview {
+            background: var(--warm-beige);
+            padding: 6rem 4rem;
+        }
+
+        .menu-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .menu-card {
+            background: var(--cream);
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .menu-card-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .menu-card-content {
+            padding: 1.5rem;
+        }
+
+        .menu-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: var(--terracotta);
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-card p {
+            font-size: 1.1rem;
+            color: var(--charcoal);
+            margin-bottom: 1rem;
+        }
+
+        .menu-card .price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            color: var(--saffron);
+            background: var(--olive);
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-card:hover .price {
+            animation: pulse 0.5s ease;
+        }
+
+        /* About Section - Asymmetrical */
+        .about {
+            background: var(--olive);
+            color: var(--cream);
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
             align-items: center;
-        }
-        .hero-content { position: relative; z-index: 2; }
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(74, 124, 89, 0.1);
-            color: var(--falafel-green);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(74, 124, 89, 0.2);
-        }
-        .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            color: var(--text-black);
-        }
-        .hero h1 .arabic-accent {
-            color: var(--falafel-green);
-            font-size: 0.9em;
-        }
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: var(--terracotta-dark);
-            margin-bottom: 2rem;
-            font-weight: 300;
-        }
-        .hero-description {
-            font-size: 1.1rem;
-            color: var(--text-dark);
-            margin-bottom: 2.5rem;
-            max-width: 90%;
-        }
-        .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-        }
-        .btn-primary {
-            background: var(--falafel-green);
-            color: var(--white);
-            box-shadow: 0 4px 15px rgba(74, 124, 89, 0.3);
-        }
-        .btn-primary:hover {
-            background: var(--falafel-green-light);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(74, 124, 89, 0.4);
-        }
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-dark);
-            border: 2px solid var(--terracotta);
-        }
-        .btn-secondary:hover {
-            background: var(--terracotta);
-            color: var(--white);
-        }
-        .hero-image { position: relative; }
-        .hero-image-main {
-            width: 100%;
-            height: 500px;
-            object-fit: cover;
-            border-radius: 20px;
-            box-shadow: 0 25px 60px rgba(44, 36, 22, 0.15);
-        }
-        .hero-image-accent {
-            position: absolute;
-            bottom: -30px; left: -30px;
-            width: 200px; height: 200px;
-            background: var(--bg-cream);
-            border-radius: 20px;
-            padding: 15px;
-            box-shadow: 0 15px 40px rgba(44, 36, 22, 0.1);
-        }
-        .hero-image-accent img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            border-radius: 12px;
-        }
-        section { padding: 5rem 2rem; }
-        .section-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        .section-tag {
-            display: inline-block;
-            font-family: 'Amiri', serif;
-            color: var(--falafel-green);
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-        .section-title {
-            font-size: clamp(2rem, 4vw, 3rem);
-            margin-bottom: 1rem;
-        }
-        .section-subtitle {
-            color: var(--terracotta-dark);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .about {
-            background: var(--bg-cream);
-            position: relative;
-        }
-        .about::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 1px;
-            background: linear-gradient(to right, transparent, var(--terracotta), transparent);
-        }
-        .about-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-            margin-bottom: 3rem;
-        }
-        .about-image {
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 15px 40px rgba(44, 36, 22, 0.15);
-        }
-        .about-image img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-        }
-        .about-text {
-            font-size: 1.2rem;
-            line-height: 1.9;
-            color: var(--text-dark);
-            text-align: left;
-        }
-        .about-text p { margin-bottom: 1.5rem; }
-        .about-highlight {
-            display: inline-block;
-            background: rgba(232, 168, 56, 0.15);
-            padding: 0.2rem 0.8rem;
-            border-radius: 4px;
-            color: var(--sun-orange);
-            font-weight: 600;
-        }
-        .about-features {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 3rem;
+            padding: 6rem 4rem;
         }
 
-        /* Gallery Section */
-        .gallery {
-            background: var(--bg-warm);
+        .about-content h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--saffron);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content .subtitle {
+            font-family: 'Amiri', serif;
+            font-size: 1.4rem;
+            color: var(--cream);
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+
+        .about-content p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            opacity: 0.95;
+        }
+
+        .about-images {
             position: relative;
         }
-        .gallery-container {
-            max-width: 1200px;
-            margin: 0 auto;
+
+        .about-img-main {
+            width: 85%;
+            border-radius: 4px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
         }
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        .gallery-item {
-            position: relative;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(44, 36, 22, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .gallery-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 35px rgba(44, 36, 22, 0.2);
-        }
-        .gallery-item img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            display: block;
-        }
-        .gallery-item.large {
-            grid-column: span 2;
-            grid-row: span 2;
-        }
-        .gallery-item.large img {
-            height: 100%;
-            min-height: 520px;
-        }
-        .gallery-caption {
+
+        .about-img-secondary {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(26, 22, 18, 0.9), transparent);
-            color: var(--white);
-            padding: 1.5rem 1rem 1rem;
-            font-size: 0.95rem;
-            font-weight: 600;
+            bottom: -30px; right: 0;
+            width: 50%;
+            border-radius: 4px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+            border: 4px solid var(--olive);
         }
-        .feature {
-            padding: 2rem;
-            background: var(--white);
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(44, 36, 22, 0.05);
+
+        /* Full Menu Section */
+        .full-menu {
+            background: var(--terracotta);
+            color: var(--cream);
+            padding: 6rem 4rem;
         }
-        .feature-icon { font-size: 2.5rem; margin-bottom: 1rem; }
-        .feature h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
-        .feature p {
-            color: var(--terracotta-dark);
-            font-size: 0.95rem;
+
+        .full-menu h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            color: var(--saffron);
+            margin-bottom: 3rem;
         }
-        .menu { background: var(--bg-warm); }
-        .menu-container { max-width: 1000px; margin: 0 auto; }
-        .menu-grid { display: grid; gap: 3rem; }
-        .menu-category {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 2.5rem;
-            box-shadow: 0 4px 30px rgba(44, 36, 22, 0.06);
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
         }
-        .menu-category-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+
+        .menu-category h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: var(--cream);
             margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid var(--bg-cream);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--saffron);
+            display: inline-block;
         }
-        .menu-category-icon { font-size: 2rem; }
-        .menu-category h3 { font-size: 1.8rem; }
-        .menu-category-desc {
-            color: var(--terracotta-dark);
-            font-size: 0.95rem;
-        }
-        .menu-category-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin-bottom: 1.5rem;
-        }
-        .menu-items { display: grid; gap: 1.2rem; }
+
         .menu-item {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
+            align-items: baseline;
             padding: 1rem 0;
-            border-bottom: 1px dashed rgba(196, 167, 125, 0.3);
+            border-bottom: 1px solid rgba(250,243,232,0.2);
+            transition: background 0.3s ease;
         }
-        .menu-item:last-child { border-bottom: none; }
-        .menu-item-info h4 {
-            font-family: 'Source Sans 3', sans-serif;
-            font-size: 1.1rem;
+
+        .menu-item:hover {
+            background: rgba(250,243,232,0.05);
+            margin: 0 -1rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .menu-item-name {
+            font-size: 1.2rem;
             font-weight: 600;
-            color: var(--text-black);
-            margin-bottom: 0.3rem;
         }
-        .menu-item-info p {
-            color: var(--terracotta-dark);
-            font-size: 0.9rem;
+
+        .menu-item-desc {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            margin-top: 0.3rem;
         }
-        .menu-item-badge {
-            display: inline-block;
-            font-size: 0.7rem;
-            font-weight: 700;
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
-            margin-left: 0.5rem;
-            text-transform: uppercase;
+
+        .menu-item-price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            color: var(--saffron);
+            transition: transform 0.3s ease;
         }
-        .menu-item-badge.veg {
-            background: rgba(74, 124, 89, 0.15);
-            color: var(--falafel-green);
+
+        .menu-item:hover .menu-item-price {
+            transform: scale(1.1);
         }
-        .menu-item-badge.spicy {
-            background: rgba(232, 168, 56, 0.15);
-            color: var(--sun-orange);
-        }
-        .sauce-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-        .sauce-item {
-            background: var(--bg-cream);
-            padding: 0.4rem 1rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            color: var(--text-dark);
-        }
-        .info {
-            background: linear-gradient(135deg, var(--bg-cream) 0%, var(--bg-warm) 100%);
-        }
-        .info-container {
-            max-width: 1000px;
-            margin: 0 auto;
+
+        /* Location Section */
+        .location {
+            background: var(--warm-beige);
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            gap: 0;
+            padding: 0;
+            min-height: 500px;
         }
-        .info-card {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 2.5rem;
-            box-shadow: 0 4px 30px rgba(44, 36, 22, 0.06);
+
+        .location-info {
+            padding: 5rem 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
-        .info-card h3 {
-            font-size: 1.5rem;
+
+        .location-info h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--terracotta);
+            margin-bottom: 2rem;
+        }
+
+        .location-detail {
             margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
         }
-        .hours-list { display: grid; gap: 0.75rem; }
-        .hours-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid var(--bg-cream);
+
+        .location-detail h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            color: var(--olive);
+            margin-bottom: 0.5rem;
         }
-        .hours-item:last-child { border-bottom: none; }
-        .hours-day { font-weight: 600; color: var(--text-black); }
-        .hours-time {
-            color: var(--falafel-green);
+
+        .location-detail p {
+            font-size: 1.2rem;
+            color: var(--charcoal);
+        }
+
+        .hours-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 0.5rem 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .hours-grid .day {
             font-weight: 600;
+            color: var(--olive);
         }
-        .hours-item.closed .hours-time { color: #999; }
-        .contact-detail {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--bg-cream);
-        }
-        .contact-detail:last-child { border-bottom: none; }
-        .contact-icon {
-            width: 40px;
-            height: 40px;
-            background: rgba(74, 124, 89, 0.1);
-            border-radius: 10px;
+
+        .location-map {
+            background: var(--olive);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            position: relative;
+            overflow: hidden;
         }
-        .contact-detail h4 {
-            font-family: 'Source Sans 3', sans-serif;
-            font-size: 0.9rem;
-            color: var(--terracotta-dark);
-            margin-bottom: 0.25rem;
+
+        .location-map::before {
+            content: '📍';
+            font-size: 8rem;
+            opacity: 0.3;
         }
-        .contact-detail p {
-            font-weight: 600;
-            color: var(--text-black);
-            font-size: 1.05rem;
-        }
-        .contact-detail a {
-            color: var(--falafel-green);
-            text-decoration: none;
-        }
-        .contact-detail a:hover {
-            text-decoration: underline;
-        }
-        .delivery-badge {
-            display: inline-flex;
+
+        .map-placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
             align-items: center;
-            gap: 0.5rem;
-            background: rgba(232, 168, 56, 0.1);
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-            font-size: 0.9rem;
-            color: var(--terracotta-dark);
+            justify-content: center;
+            flex-direction: column;
+            color: var(--cream);
+            text-align: center;
+            padding: 2rem;
         }
+
+        .map-placeholder h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .map-placeholder p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
         footer {
-            background: var(--text-black);
-            color: var(--bg-cream);
-            padding: 3rem 2rem;
+            background: var(--charcoal);
+            color: var(--cream);
+            padding: 4rem;
             text-align: center;
         }
+
         .footer-content {
             max-width: 800px;
             margin: 0 auto;
         }
+
         .footer-logo {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--saffron);
             margin-bottom: 1rem;
         }
+
         .footer-tagline {
-            color: var(--terracotta);
-            font-size: 1rem;
+            font-family: 'Amiri', serif;
+            font-size: 1.3rem;
+            color: var(--cream);
+            opacity: 0.8;
             margin-bottom: 2rem;
         }
-        .footer-divider {
-            height: 1px;
-            background: rgba(196, 167, 125, 0.2);
-            margin: 2rem 0;
+
+        .footer-contact {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
         }
+
+        .footer-contact-item {
+            font-size: 1.1rem;
+        }
+
+        .footer-contact-item strong {
+            display: block;
+            color: var(--saffron);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
         .footer-bottom {
-            font-size: 0.9rem;
-            color: var(--terracotta-dark);
+            border-top: 1px solid rgba(250,243,232,0.2);
+            padding-top: 2rem;
+            margin-top: 2rem;
+            font-size: 0.95rem;
+            opacity: 0.7;
         }
-        @media (max-width: 900px) {
-            .hero-container { grid-template-columns: 1fr; }
-            .hero-image { order: -1; }
-            .hero-image-main { height: 350px; }
-            .hero-image-accent { display: none; }
-            .about-content { grid-template-columns: 1fr; }
-            .about-image { order: -1; }
-            .about-image img { height: 300px; }
-            .about-features { grid-template-columns: 1fr; }
-            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-            .gallery-item.large {
-                grid-column: span 2;
-                grid-row: span 1;
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-image {
+                position: relative;
+                right: auto;
+                top: auto;
+                transform: none;
+                width: 100%;
+                max-width: 500px;
+                margin-top: 3rem;
             }
-            .gallery-item.large img {
-                min-height: 250px;
-                height: 250px;
+
+            .hero {
+                flex-direction: column;
+                padding-top: 7rem;
             }
-            .info-container { grid-template-columns: 1fr; }
-            .nav-links { display: none; }
-            .mobile-menu-btn { display: block; }
+
+            .hero::before {
+                width: 150%;
+                right: -50%;
+            }
+
+            .hero-info {
+                position: relative;
+                bottom: auto;
+                left: auto;
+                margin-top: 3rem;
+                flex-wrap: wrap;
+            }
+
+            .menu-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+            }
+
+            .about-images {
+                order: -1;
+                margin-bottom: 2rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .location {
+                grid-template-columns: 1fr;
+            }
+
+            .location-map {
+                min-height: 300px;
+            }
         }
-        @media (max-width: 600px) {
-            .gallery-grid { grid-template-columns: 1fr; }
-            .gallery-item.large { grid-column: span 1; }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--warm-white);
+                flex-direction: column;
+                padding: 1.5rem;
+                gap: 1rem;
+                border-bottom: 1px solid rgba(199,91,57,0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            .hero {
+                padding: 6rem 1.5rem 3rem;
+            }
+
+            .hero h1 {
+                font-size: clamp(3rem, 15vw, 5rem);
+            }
+
+            .menu-preview {
+                padding: 4rem 1.5rem;
+            }
+
+            .menu-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .about {
+                padding: 4rem 1.5rem;
+            }
+
+            .full-menu {
+                padding: 4rem 1.5rem;
+            }
+
+            .location-info {
+                padding: 3rem 1.5rem;
+            }
+
+            .footer {
+                padding: 3rem 1.5rem;
+            }
+
+            .footer-contact {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .hero-info {
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 375px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .btn {
+                padding: 0.8rem 1.8rem;
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="#" class="logo">
-                <span class="logo-text">Mirs Falafel</span>
-                <span class="logo-accent arabic-accent">مير</span>
-            </a>
-            <ul class="nav-links">
-                <li><a href="#om-oss">Om oss</a></li>
-                <li><a href="#galleri">Våra Rätter</a></li>
-                <li><a href="#meny">Meny</a></li>
-                <li><a href="#oppettider">Öppettider</a></li>
-                <li><a href="#kontakt">Kontakt</a></li>
-            </ul>
-            <button class="mobile-menu-btn">☰</button>
-        </nav>
-    </header>
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">
+            <span class="logo-main">MIR'S FALAFEL</span>
+            <span class="logo-accent">مير</span>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#meny">Meny</a></li>
+            <li><a href="#om-oss">Om Oss</a></li>
+            <li><a href="#hitta-hit">Hitta Hit</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Öppna meny">☰</button>
+    </nav>
 
+    <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <div class="hero-badge">Färska ingredienser dagligen</div>
-                <h1>Äkta falafel <span class="arabic-accent">طعم لبنان</span><br>från Libanon</h1>
-                <p class="hero-subtitle">Familjeägd falafelrestaurang i Norsborg</p>
-                <p class="hero-description">Vi serverar färsk, krispig falafel gjord på äkta libanesiska recept. Varje boll är handrullad och friterad med kärlek — precis som mormor gjorde den.</p>
-                <div class="hero-cta">
-                    <a href="#meny" class="btn btn-primary">Se vår meny →</a>
-                    <a href="#oppettider" class="btn btn-secondary">Öppettider</a>
-                </div>
-            </div>
-            <div class="hero-image">
-                <img src="images/hero-falafel.png" alt="Falafel i pitabröd" class="hero-image-main">
-                <div class="hero-image-accent">
-                    <img src="images/falafel-closeup.png" alt="Färsk falafel">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="about" id="om-oss">
-        <div class="about-container">
-            <div class="section-header">
-                <span class="section-tag">مير</span>
-                <h2 class="section-title">Om Mirs Falafel</h2>
-            </div>
-            <div class="about-content">
-                <div class="about-image">
-                    <img src="images/restaurant-interior.png" alt="Varm, familjeägd restauranginteriör med mysig atmosfär">
-                </div>
-                <div class="about-text">
-                    <p>Mirs Falafel är en <span class="about-highlight">familjeägd restaurang</span> i hjärtat av Norsborg. Sedan vi öppnade har vi haft ett enda mål: att servera den <span class="about-highlight">äkta smaken av Libanon</span> till våra gäster.</p>
-                    <p>Vår falafel görs för hand varje morgon — med färska örter, kryddor och en hel del kärlek. Vi använder endast de finaste ingredienserna och följer recept som gått i arv genom generationer.</p>
-                    <p>Kom förbi på <strong>Segersbyvägen 15</strong> och upplev skillnaden själv. Vi lovar att du inte blir besviken!</p>
-                </div>
-            </div>
-            <div class="about-features">
-                <div class="feature">
-                    <div class="feature-icon">🌿</div>
-                    <h3>Färska ingredienser</h3>
-                    <p>Vi handplockar grönsaker och örter varje dag</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">👨‍🍳</div>
-                    <h3>Handgjord falafel</h3>
-                    <p>Varje boll rullas för hand efter traditionella recept</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">❤️</div>
-                    <h3>Med kärlek</h3>
-                    <p>Mat lagad med passion och omsorg</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="gallery" id="galleri">
-        <div class="gallery-container">
-            <div class="section-header">
-                <span class="section-tag">مير</span>
-                <h2 class="section-title">Våra Rätter</h2>
-                <p class="section-subtitle">Upptäck vårt utbud av äkta mellanösternsmaker</p>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item large">
-                    <img src="images/falafel-plate.png" alt="Falafeltallrik med färsk sallad och såser">
-                    <div class="gallery-caption">Falafeltallrik — vår klassiker</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="images/falafel-roll.png" alt="Falafelrulle med färska grönsaker">
-                    <div class="gallery-caption">Falafelrulle</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="images/wrap-closeup.jpg" alt="Närbild på krispig falafelrulle">
-                    <div class="gallery-caption">Krispig & god</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="images/kebab-plate.jpg" alt="Kebabtallrik med pommes">
-                    <div class="gallery-caption">Kebabtallrik</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="images/falafel-bowl.jpg" alt="Falafel bowl med hummus">
-                    <div class="gallery-caption">Falafel Bowl</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="images/hummus-plate.jpg" alt="Hummus tallrik med pitabröd">
-                    <div class="gallery-caption">Hummus & Pitabröd</div>
-                </div>
-                <div class="gallery-item large">
-                    <img src="images/falafel-ingredients.png" alt="Färska ingredienser för falafel">
-                    <div class="gallery-caption">Färska ingredienser — varje dag</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="images/fresh-veggies.jpg" alt="Färska grönsaker och örter">
-                    <div class="gallery-caption">Färska grönsaker</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="images/family-meal.jpg" alt="Måltid att dela med familjen">
-                    <div class="gallery-caption">Perfekt för familjen</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="images/restaurant-atmosphere.jpg" alt="Restaurangens varma atmosfär">
-                    <div class="gallery-caption">Välkommen in!</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="menu" id="meny">
-        <div class="menu-container">
-            <div class="section-header">
-                <span class="section-tag">القائمة</span>
-                <h2 class="section-title">Vår meny</h2>
-                <p class="section-subtitle">Alla rätter serveras med kärlek och äkta libanesisk gästfrihet</p>
-            </div>
-            
-            <div class="menu-grid">
-                <!-- Sallader -->
-                <div class="menu-category">
-                    <div class="menu-category-header">
-                        <span class="menu-category-icon">🥗</span>
-                        <div>
-                            <h3>Sallader</h3>
-                            <p class="menu-category-desc">Fräscha och mättande sallader</p>
-                        </div>
-                    </div>
-                    <div class="menu-items">
-                        <div class="menu-item">
-                            <div class="menu-item-info">
-                                <h4>Falafelsallad <span class="menu-item-badge veg">Veg</span></h4>
-                                <p>Färsk falafel, inlagd gurka, majrova, sallad, tomat, gurka & tahinisås</p>
-                            </div>
-                        </div>
-                        <div class="menu-item">
-                            <div class="menu-item-info">
-                                <h4>Kebabsallad</h4>
-                                <p>Kebab, lök, vitlökssås, stark sås, sallad, gurka & tomat</p>
-                            </div>
-                        </div>
-                        <div class="menu-item">
-                            <div class="menu-item-info">
-                                <h4>Krispig Kycklingsallad <span class="menu-item-badge spicy">Stark</span></h4>
-                                <p>Friterad kyckling, stark mangoraja, lök, tomater, gurka & sallad</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Rullar -->
-                <div class="menu-category">
-                    <div class="menu-category-header">
-                        <span class="menu-category-icon">🌯</span>
-                        <div>
-                            <h3>Rullar</h3>
-                            <p class="menu-category-desc">Vår mest populära rätter</p>
-                        </div>
-                    </div>
-                    <div class="menu-items">
-                        <div class="menu-item">
-                            <div class="menu-item-info">
-                                <h4>Falafelrulle <span class="menu-item-badge veg">Veg</span></h4>
-                                <p>Färsk falafel, tahinisås & sallad</p>
-                            </div>
-                        </div>
-                        <div class="menu-item">
-                            <div class="menu-item-info">
-                                <h4>Kebabrulle</h4>
-                                <p>Kebab, vitlökssås & sallad</p>
-                            </div>
-                        </div>
-                        <div class="menu-item">
-                            <div class="menu-item-info">
-                                <h4>Krispig Kycklingrulle <span class="menu-item-badge spicy">Stark</span></h4>
-                                <p>Friterad kyckling, stark mangoraja, lök, tomater & sallad</p>
-                            </div>
-                        </div>
-                        <div class="menu-item">
-                            <div class="menu-item-info">
-                                <h4>Greken Rulle <span class="menu-item-badge veg">Veg</span></h4>
-                                <p>Färsk falafel, vitost & dressing</p>
-                            </div>
-                        </div>
-                        <div class="menu-item">
-                            <div class="menu-item-info">
-                                <h4>Halloumirulle <span class="menu-item-badge veg">Veg</span> <span class="menu-item-badge spicy">Stark</span></h4>
-                                <p>Krispig halloumi, lök, mynta, sallad & stark mangoraja</p>
-                            </div>
-                        </div>
-                        <div class="menu-item">
-                            <div class="menu-item-info">
-                                <h4>Faloumirulle <span class="menu-item-badge veg">Veg</span></h4>
-                                <p>Färsk falafel, halloumi & dressing</p>
-                            </div>
-                        </div>
-                        <div class="menu-item">
-                            <div class="menu-item-info">
-                                <h4>Simons Specialrulle <span class="menu-item-badge veg">Veg</span></h4>
-                                <p>Färsk falafel, blomkål, aubergine, grönsaker & dressing</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tallrikar -->
-                <div class="menu-category">
-                    <div class="menu-category-header">
-                        <span class="menu-category-icon">🍽️</span>
-                        <div>
-                            <h3>Tallrikar</h3>
-                            <p class="menu-category-desc">Kompletta måltider med pommes</p>
-                        </div>
-                    </div>
-                    <div class="menu-items">
-                        <div class="menu-item">
-                            <div class="menu-item-info">
-                                <h4>Falafeltallrik <span class="menu-item-badge veg">Veg</span></h4>
-                                <p>Färsk falafel, tahinisås, pommes frites & sallad</p>
-                            </div>
-                        </div>
-                        <div class="menu-item">
-                            <div class="menu-item-info">
-                                <h4>Kebabtallrik</h4>
-                                <p>Kebab, vitlökssås, pommes frites & sallad</p>
-                            </div>
-                        </div>
-                        <div class="menu-item">
-                            <div class="menu-item-info">
-                                <h4>Krispig Kycklingtallrik <span class="menu-item-badge spicy">Stark</span></h4>
-                                <p>Friterad kyckling, stark mangoraja, lök, tomater, pommes frites & sallad</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tillbehör -->
-                <div class="menu-category">
-                    <div class="menu-category-header">
-                        <span class="menu-category-icon">🍟</span>
-                        <div>
-                            <h3>Tillbehör</h3>
-                            <p class="menu-category-desc">Extra gott till din måltid</p>
-                        </div>
-                    </div>
-                    <div class="menu-items">
-                        <div class="menu-item">
-                            <div class="menu-item-info">
-                                <h4>Färsk Falafel <span class="menu-item-badge veg">Veg</span></h4>
-                                <p>10 st krispiga falafelbollar</p>
-                            </div>
-                        </div>
-                        <div class="menu-item">
-                            <div class="menu-item-info">
-                                <h4>Pommes Frites</h4>
-                                <p>Klassiska gyllene pommes</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid var(--bg-cream);">
-                        <p style="font-weight: 600; margin-bottom: 0.75rem; color: var(--text-black);">Våra såser:</p>
-                        <div class="sauce-list">
-                            <span class="sauce-item">Tahinisås</span>
-                            <span class="sauce-item">Vitlökssås</span>
-                            <span class="sauce-item">Mangoraja</span>
-                            <span class="sauce-item">Stark Sås</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="info" id="oppettider">
-        <div class="info-container">
-            <div class="info-card">
-                <h3>🕐 Öppettider</h3>
-                <div class="hours-list">
-                    <div class="hours-item">
-                        <span class="hours-day">Måndag – Fredag</span>
-                        <span class="hours-time">11:00 – 20:00</span>
-                    </div>
-                    <div class="hours-item">
-                        <span class="hours-day">Lördag</span>
-                        <span class="hours-time">12:00 – 18:00</span>
-                    </div>
-                    <div class="hours-item closed">
-                        <span class="hours-day">Söndag</span>
-                        <span class="hours-time">Stängt</span>
-                    </div>
-                </div>
-                <div class="delivery-badge">
-                    🛵 Beställ via <a href="https://www.ubereats.com" target="_blank" style="color: var(--falafel-green); text-decoration: underline;">Uber Eats</a>
-                </div>
-            </div>
-            
-            <div class="info-card" id="kontakt">
-                <h3>📍 Kontakt</h3>
-                <div class="contact-details">
-                    <div class="contact-detail">
-                        <div class="contact-icon">📍</div>
-                        <div>
-                            <h4>Adress</h4>
-                            <p>Segersbyvägen 15<br>145 63 Norsborg</p>
-                        </div>
-                    </div>
-                    <div class="contact-detail">
-                        <div class="contact-icon">📞</div>
-                        <div>                            <h4>Telefon</h4>
-                            <p>Telefonnummer kommer snart</p>
-                        </div>
-                    </div>
-                    <div class="contact-detail">
-                        <div class="contact-icon">🚗</div>
-                        <div>
-                            <h4>Område</h4>
-                            <p>Botkyrka kommun, Stockholm</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">Mirs Falafel <span class="arabic-accent" style="color: var(--falafel-green);">مير</span></div>
-            <p class="footer-tagline">Äkta falafel från hjärtat av Libanon</p>
-            <div class="footer-divider"></div>
-            <p class="footer-bottom">
-                Segersbyvägen 15, 145 63 Norsborg<br>
-                © 2025 Mirs Falafel AB
+        <div class="hero-content">
+            <h1 class="animate-fade-in-up">MIR'S<br>FALAFEL</h1>
+            <p class="hero-subtitle animate-fade-in-up delay-200">Äkta smaker från Mellanöstern</p>
+            <p class="hero-text animate-fade-in-up delay-300">
+                Familjeägd falafelkiosk i Norsborg sedan 2010. Vi serverar handgjord falafel, 
+                saftig kebab och färska sallader med kärlek och tradition.
             </p>
+            <a href="#meny" class="btn btn-filled animate-fade-in-up delay-400">SE VÅR MENY</a>
+        </div>
+        <div class="hero-image animate-scale-in delay-500">
+            <img src="images/hero-falafel.png" alt="Falafel tallrik med hummus och sallad">
+        </div>
+        <div class="hero-info animate-fade-in delay-700">
+            <div class="hero-info-item">
+                <h3>ÖPPET IDAG</h3>
+                <p>11:00 - 20:00</p>
+            </div>
+            <div class="hero-info-item">
+                <h3>ADRESS</h3>
+                <p>Segersbyvägen 15<br>145 63 Norsborg</p>
+            </div>
+            <div class="hero-info-item">
+                <h3>TELEFON</h3>
+                <p>08-274 82 84</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Preview Section -->
+    <section class="menu-preview" id="meny">
+        <div class="section-header animate-fade-in-up">
+            <h2>VÅRA RÄTTER</h2>
+            <p class="subtitle">Handgjort med kärlek sedan 2010</p>
+        </div>
+        <div class="menu-cards">
+            <div class="menu-card animate-fade-in-up delay-100">
+                <img src="images/falafel-plate.png" alt="Falafel tallrik" class="menu-card-image">
+                <div class="menu-card-content">
+                    <h3>FALAFEL</h3>
+                    <p>Kryddiga kikärtsbollar, färsk sallad, hummus och tahinisås</p>
+                    <span class="price">95 kr</span>
+                </div>
+            </div>
+            <div class="menu-card animate-fade-in-up delay-200">
+                <img src="images/kebab-plate.jpg" alt="Kebab tallrik" class="menu-card-image">
+                <div class="menu-card-content">
+                    <h3>KEBAB</h3>
+                    <p>Saftigt kött, krispiga grönsaker, vitlökssås och bröd</p>
+                    <span class="price">105 kr</span>
+                </div>
+            </div>
+            <div class="menu-card animate-fade-in-up delay-300">
+                <img src="images/falafel-bowl.jpg" alt="Sallad" class="menu-card-image">
+                <div class="menu-card-content">
+                    <h3>SALLAD</h3>
+                    <p>Färska grönsaker med falafel eller kebab, dressing efter val</p>
+                    <span class="price">110 kr</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="om-oss">
+        <div class="about-content animate-slide-left">
+            <h2>FAMILJENS<br>HISTORIA</h2>
+            <p class="subtitle">En smakresa från Damaskus till Norsborg</p>
+            <p>
+                Mir's Falafel startades 2010 av familjen Mir med en dröm: att dela med sig av 
+                äkta mellanösternsmaker till Norsborg. Våra recept har gått i arv i generationer, 
+                från mor till dotter, från far till son.
+            </p>
+            <p>
+                Varje falafel är handrullad, varje sås är hemgjord, och varje gäst behandlas 
+                som familj. Det är så vi gör det på Mir's — med kärlek, tradition och en stor portion generositet.
+            </p>
+            <a href="#hitta-hit" class="btn">BESÖK OSS</a>
+        </div>
+        <div class="about-images animate-slide-right">
+            <img src="images/falafel-ingredients.png" alt="Färska ingredienser" class="about-img-main">
+            <img src="images/family-meal.jpg" alt="Familjen vid matbordet" class="about-img-secondary">
+        </div>
+    </section>
+
+    <!-- Full Menu Section -->
+    <section class="full-menu">
+        <h2 class="animate-fade-in-up">FULL MENY</h2>
+        <div class="menu-grid">
+            <div class="menu-category animate-fade-in-up delay-100">
+                <h3>RULLAR</h3>
+                <div class="menu-item">
+                    <div>
+                        <div class="menu-item-name">Falafelrulle</div>
+                        <div class="menu-item-desc">I tunnbröd med sallad och sås</div>
+                    </div>
+                    <span class="menu-item-price">85 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <div class="menu-item-name">Kebabrulle</div>
+                        <div class="menu-item-desc">Saftigt kött med alla tillbehör</div>
+                    </div>
+                    <span class="menu-item-price">95 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <div class="menu-item-name">Kycklingrulle</div>
+                        <div class="menu-item-desc">Grillad kyckling med färska grönsaker</div>
+                    </div>
+                    <span class="menu-item-price">95 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <div class="menu-item-name">Veganrulle</div>
+                        <div class="menu-item-desc">Falafel med vegansk dressing</div>
+                    </div>
+                    <span class="menu-item-price">85 kr</span>
+                </div>
+            </div>
+
+            <div class="menu-category animate-fade-in-up delay-200">
+                <h3>TALLRIKAR</h3>
+                <div class="menu-item">
+                    <div>
+                        <div class="menu-item-name">Falafeltallrik</div>
+                        <div class="menu-item-desc">Med ris, sallad och bröd</div>
+                    </div>
+                    <span class="menu-item-price">95 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <div class="menu-item-name">Kebabtallrik</div>
+                        <div class="menu-item-desc">Vår populäraste rätt!</div>
+                    </div>
+                    <span class="menu-item-price">105 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <div class="menu-item-name">Kycklingtallrik</div>
+                        <div class="menu-item-desc">Grillad kycklingfilé med tillbehör</div>
+                    </div>
+                    <span class="menu-item-price">105 kr</span>
+                </div>
+            </div>
+
+            <div class="menu-category animate-fade-in-up delay-300">
+                <h3>SALLADER</h3>
+                <div class="menu-item">
+                    <div>
+                        <div class="menu-item-name">Falafelsallad</div>
+                        <div class="menu-item-desc">Färska grönsaker med falafel</div>
+                    </div>
+                    <span class="menu-item-price">110 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <div class="menu-item-name">Kebabsallad</div>
+                        <div class="menu-item-desc">Saftigt kebabkött över krispig sallad</div>
+                    </div>
+                    <span class="menu-item-price">115 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <div class="menu-item-name">Ost- och avokadosallad</div>
+                        <div class="menu-item-desc">Krämig avokado med vitost</div>
+                    </div>
+                    <span class="menu-item-price">120 kr</span>
+                </div>
+            </div>
+
+            <div class="menu-category animate-fade-in-up delay-400">
+                <h3>TILLBEHÖR</h3>
+                <div class="menu-item">
+                    <div>
+                        <div class="menu-item-name">Hummus</div>
+                        <div class="menu-item-desc">Hemgjord kikärtsröra</div>
+                    </div>
+                    <span class="menu-item-price">35 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <div class="menu-item-name">Baba Ganoush</div>
+                        <div class="menu-item-desc">Rökt auberginekräm</div>
+                    </div>
+                    <span class="menu-item-price">35 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <div class="menu-item-name">Falafel (5 st)</div>
+                        <div class="menu-item-desc">Kryddiga kikärtsbollar</div>
+                    </div>
+                    <span class="menu-item-price">45 kr</span>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <div class="menu-item-name">Dryck</div>
+                        <div class="menu-item-desc">Läsk, vatten, ayran</div>
+                    </div>
+                    <span class="menu-item-price">20 kr</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="location" id="hitta-hit">
+        <div class="location-info animate-slide-left">
+            <h2>HITTA HIT</h2>
+            <div class="location-detail">
+                <h3>Adress</h3>
+                <p>Segersbyvägen 15<br>145 63 Norsborg</p>
+            </div>
+            <div class="location-detail">
+                <h3>Telefon</h3>
+                <p>08-274 82 84</p>
+            </div>
+            <div class="location-detail">
+                <h3>Öppettider</h3>
+                <div class="hours-grid">
+                    <span class="day">Måndag - Fredag:</span>
+                    <span>11:00 - 20:00</span>
+                    <span class="day">Lördag:</span>
+                    <span>12:00 - 18:00</span>
+                    <span class="day">Söndag:</span>
+                    <span>Stängt</span>
+                </div>
+            </div>
+        </div>
+        <div class="location-map animate-slide-right">
+            <div class="map-placeholder">
+                <h3>NORSBORG</h3>
+                <p>Segersbyvägen 15<br>Besök oss för äkta falafel!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="kontakt">
+        <div class="footer-content">
+            <div class="footer-logo">MIR'S FALAFEL</div>
+            <p class="footer-tagline">Äkta smaker från Mellanöstern</p>
+            <div class="footer-contact">
+                <div class="footer-contact-item">
+                    <strong>ADRESS</strong>
+                    Segersbyvägen 15<br>145 63 Norsborg
+                </div>
+                <div class="footer-contact-item">
+                    <strong>TELEFON</strong>
+                    08-274 82 84
+                </div>
+                <div class="footer-contact-item">
+                    <strong>ÖPPET</strong>
+                    Mån-Fre: 11-20<br>Lör: 12-18
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 Mir's Falafel. Familjeägt sedan 2010.</p>
+            </div>
         </div>
     </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.textContent = '☰';
+            });
+        });
+
+        // Scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('[class*="animate-"]').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
