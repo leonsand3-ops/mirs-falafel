@@ -246,10 +246,28 @@
             margin: 0 auto;
             text-align: center;
         }
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+        .about-image {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(44, 36, 22, 0.15);
+        }
+        .about-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
         .about-text {
             font-size: 1.2rem;
             line-height: 1.9;
             color: var(--text-dark);
+            text-align: left;
         }
         .about-text p { margin-bottom: 1.5rem; }
         .about-highlight {
@@ -265,6 +283,58 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
             margin-top: 3rem;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            background: var(--bg-warm);
+            position: relative;
+        }
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .gallery-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(44, 36, 22, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(44, 36, 22, 0.2);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+        .gallery-item.large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+        .gallery-item.large img {
+            height: 100%;
+            min-height: 520px;
+        }
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(26, 22, 18, 0.9), transparent);
+            color: var(--white);
+            padding: 1.5rem 1rem 1rem;
+            font-size: 0.95rem;
+            font-weight: 600;
         }
         .feature {
             padding: 2rem;
@@ -300,6 +370,13 @@
         .menu-category-desc {
             color: var(--terracotta-dark);
             font-size: 0.95rem;
+        }
+        .menu-category-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
         }
         .menu-items { display: grid; gap: 1.2rem; }
         .menu-item {
@@ -469,10 +546,26 @@
             .hero-image { order: -1; }
             .hero-image-main { height: 350px; }
             .hero-image-accent { display: none; }
+            .about-content { grid-template-columns: 1fr; }
+            .about-image { order: -1; }
+            .about-image img { height: 300px; }
             .about-features { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            .gallery-item.large {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
+            .gallery-item.large img {
+                min-height: 250px;
+                height: 250px;
+            }
             .info-container { grid-template-columns: 1fr; }
             .nav-links { display: none; }
             .mobile-menu-btn { display: block; }
+        }
+        @media (max-width: 600px) {
+            .gallery-grid { grid-template-columns: 1fr; }
+            .gallery-item.large { grid-column: span 1; }
         }
     </style>
 </head>
@@ -485,6 +578,7 @@
             </a>
             <ul class="nav-links">
                 <li><a href="#om-oss">Om oss</a></li>
+                <li><a href="#galleri">Våra Rätter</a></li>
                 <li><a href="#meny">Meny</a></li>
                 <li><a href="#oppettider">Öppettider</a></li>
                 <li><a href="#kontakt">Kontakt</a></li>
@@ -520,10 +614,15 @@
                 <span class="section-tag">مير</span>
                 <h2 class="section-title">Om Mirs Falafel</h2>
             </div>
-            <div class="about-text">
-                <p>Mirs Falafel är en <span class="about-highlight">familjeägd restaurang</span> i hjärtat av Norsborg. Sedan vi öppnade har vi haft ett enda mål: att servera den <span class="about-highlight">äkta smaken av Libanon</span> till våra gäster.</p>
-                <p>Vår falafel görs för hand varje morgon — med färska örter, kryddor och en hel del kärlek. Vi använder endast de finaste ingredienserna och följer recept som gått i arv genom generationer.</p>
-                <p>Kom förbi på <strong>Segersbyvägen 15</strong> och upplev skillnaden själv. Vi lovar att du inte blir besviken!</p>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="images/restaurant-interior.png" alt="Varm, familjeägd restauranginteriör med mysig atmosfär">
+                </div>
+                <div class="about-text">
+                    <p>Mirs Falafel är en <span class="about-highlight">familjeägd restaurang</span> i hjärtat av Norsborg. Sedan vi öppnade har vi haft ett enda mål: att servera den <span class="about-highlight">äkta smaken av Libanon</span> till våra gäster.</p>
+                    <p>Vår falafel görs för hand varje morgon — med färska örter, kryddor och en hel del kärlek. Vi använder endast de finaste ingredienserna och följer recept som gått i arv genom generationer.</p>
+                    <p>Kom förbi på <strong>Segersbyvägen 15</strong> och upplev skillnaden själv. Vi lovar att du inte blir besviken!</p>
+                </div>
             </div>
             <div class="about-features">
                 <div class="feature">
@@ -540,6 +639,58 @@
                     <div class="feature-icon">❤️</div>
                     <h3>Med kärlek</h3>
                     <p>Mat lagad med passion och omsorg</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery" id="galleri">
+        <div class="gallery-container">
+            <div class="section-header">
+                <span class="section-tag">مير</span>
+                <h2 class="section-title">Våra Rätter</h2>
+                <p class="section-subtitle">Upptäck vårt utbud av äkta mellanösternsmaker</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item large">
+                    <img src="images/falafel-plate.png" alt="Falafeltallrik med färsk sallad och såser">
+                    <div class="gallery-caption">Falafeltallrik — vår klassiker</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/falafel-roll.png" alt="Falafelrulle med färska grönsaker">
+                    <div class="gallery-caption">Falafelrulle</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/wrap-closeup.jpg" alt="Närbild på krispig falafelrulle">
+                    <div class="gallery-caption">Krispig & god</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/kebab-plate.jpg" alt="Kebabtallrik med pommes">
+                    <div class="gallery-caption">Kebabtallrik</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/falafel-bowl.jpg" alt="Falafel bowl med hummus">
+                    <div class="gallery-caption">Falafel Bowl</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/hummus-plate.jpg" alt="Hummus tallrik med pitabröd">
+                    <div class="gallery-caption">Hummus & Pitabröd</div>
+                </div>
+                <div class="gallery-item large">
+                    <img src="images/falafel-ingredients.png" alt="Färska ingredienser för falafel">
+                    <div class="gallery-caption">Färska ingredienser — varje dag</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/fresh-veggies.jpg" alt="Färska grönsaker och örter">
+                    <div class="gallery-caption">Färska grönsaker</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/family-meal.jpg" alt="Måltid att dela med familjen">
+                    <div class="gallery-caption">Perfekt för familjen</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/restaurant-atmosphere.jpg" alt="Restaurangens varma atmosfär">
+                    <div class="gallery-caption">Välkommen in!</div>
                 </div>
             </div>
         </div>
